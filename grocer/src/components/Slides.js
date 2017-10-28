@@ -6,7 +6,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class Slides extends Component {
   renderLastSlide(index) {
-    if (index === this.props.data.length -1) {
+    if (index === this.props.data.length - 1) {
       return (
         <Button
           title="Onwards!"
@@ -21,7 +21,9 @@ class Slides extends Component {
   renderSlides() {
     return this.props.data.map((slide, index) => {
       return (
-        <View key={slide.text} style={[styles.slideStyle, { backgroundColor: slide.color }]}
+        <View
+          key={slide.text}
+          style={[styles.slideStyle, { backgroundColor: slide.color }]}
         >
           <Text style={styles.textStyle}>{slide.text}</Text>
           {this.renderLastSlide(index)}
