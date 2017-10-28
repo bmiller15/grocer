@@ -8,6 +8,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 // npm install --save react-navigation
+// npm install --save react-native-elements
 import { TabNavigator } from 'react-navigation';
 
 // Screen imports
