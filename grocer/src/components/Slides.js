@@ -19,26 +19,17 @@ class Slides extends Component {
   }
 
   renderSlides() {
-    return this.props.data.map((slide, index) => {
-      return (
-        <View
-          key={slide.text}
-          style={[styles.slideStyle, { backgroundColor: slide.color }]}
-        >
+    return this.props.data.map((slide, index) => (
+        <View key={slide.text} style={[styles.slideStyle, { backgroundColor: slide.color }]}>
           <Text style={styles.textStyle}>{slide.text}</Text>
           {this.renderLastSlide(index)}
         </View>
-      );
-    });
+      ));
   }
 
   render() {
     return (
-      <ScrollView
-        horizontal
-        style={{ flex: 1 }}
-        pagingEnabled
-      >
+      <ScrollView horizontal style={{ flex: 1 }} pagingEnabled>
         {this.renderSlides()}
       </ScrollView>
     );

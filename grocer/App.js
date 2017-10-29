@@ -7,8 +7,6 @@
 
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-// npm install --save react-navigation
-// npm install --save react-native-elements
 import { TabNavigator } from 'react-navigation';
 
 // Screen imports
@@ -34,14 +32,27 @@ export default class App extends React.Component {
       AuthScreen: { screen: AuthScreen },
       main: {
         // main navigation: Swipe, Grocery, Recipes, Add
-        screen: TabNavigator({
-          SwipeScreen: { screen: SwipeScreen },
-          GroceryListScreen: { screen: GroceryListScreen },
-          RecipesScreen: { screen: RecipesScreen },
-          AddNewScreen: { screen: AddNewScreen }
-        })
+        screen: TabNavigator(
+          {
+            SwipeScreen: { screen: SwipeScreen },
+            GroceryListScreen: { screen: GroceryListScreen },
+            RecipesScreen: { screen: RecipesScreen },
+            AddNewScreen: { screen: AddNewScreen }
+          },
+          {
+            tabBarPosition: 'bottom',
+            lazy: true,
+            tabBarOptions: {
+              showIcon: true,
+              labelStyle: { fontSize: 12 },
+              iconStyle: {
+                width: 30,
+                height: 30
+              }
+            }
+          }
+        )
       }
-
     });
 
     return (
@@ -56,5 +67,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
-  },
+  }
 });
