@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class RecipesScreen extends Component {
+class SignUpScreen extends Component {
   render() {
     return (
       <View>
-        <Text>RecipesScreen</Text>
-        <Text>RecipesScreen</Text>
-        <Text>RecipesScreen</Text>
-        <Text>RecipesScreen</Text>
-        <Text>RecipesScreen</Text>
-        <Text>RecipesScreen</Text>
+        <Text>SignUpScreen</Text>
+        <Text>SignUpScreen</Text>
+        <Text>SignUpScreen</Text>
+        <Text>SignUpScreen</Text>
+        <Text>SignUpScreen</Text>
+        <Text>SignUpScreen</Text>
       </View>
     );
   }
 }
 
-export default RecipesScreen;
+export default SignUpScreen;
