@@ -23,19 +23,18 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 
 // App.js (main file)
 export default class App extends React.Component {
+  state = { loggedIn: null };
 
   // Initialize firebase
   componentWillMount() {
-     const config = {
-      apiKey: "AIzaSyBTdlC-4TyW8rwgG6oEE5CApfpgl81x6Yc",
-      authDomain: "grocer-a0b37.firebaseapp.com",
-      databaseURL: "https://grocer-a0b37.firebaseio.com",
-      projectId: "grocer-a0b37",
-      storageBucket: "",
-      messagingSenderId: "307732369632"
-    };
-
-    firebase.initializeApp(config);
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBTdlC-4TyW8rwgG6oEE5CApfpgl81x6Yc',
+      authDomain: 'grocer-a0b37.firebaseapp.com',
+      databaseURL: 'https://grocer-a0b37.firebaseio.com',
+      projectId: 'grocer-a0b37',
+      storageBucket: '',
+      messagingSenderId: '307732369632'
+    });
   }
 
   render() {
@@ -76,7 +75,7 @@ export default class App extends React.Component {
       tabBarPosition: 'bottom',
       lazy: true,
       navigationOptions: {
-        tabBarVisible: false,
+        //tabBarVisible: false,
         animationEnabled: false,
         swipeEnabled: false
       },

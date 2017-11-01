@@ -45,7 +45,9 @@ const styles = {
   },
   textStyle: {
     fontSize: 30,
-    color: 'white'
+    color: 'white',
+    margin: 15,
+    textAlign: 'center'
   },
   buttonStyle: {
     backgroundColor: '#0288D1',
