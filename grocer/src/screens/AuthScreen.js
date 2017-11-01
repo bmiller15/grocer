@@ -11,9 +11,7 @@ import { Spinner } from '../components/Spinner';
 
 class AuthScreen extends Component {
   // Navigation Options to Impliment the bottom bar icons not in here tho
-  static navigationOptions = {
-
-  }
+  static navigationOptions = {};
 
   // Initial state definition
   state = { email: '', password: '', error: '', loading: false };
@@ -26,7 +24,9 @@ class AuthScreen extends Component {
     // Sets loading to true while we check authentication
     this.setState({ error: '', loading: true });
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
       .then(this.onLoginSuccess.bind(this))
       .catch(this.onLoginFail.bind(this));
   }
@@ -49,9 +49,7 @@ class AuthScreen extends Component {
   }
 
   // Signup page redirect
-  onSignupLoginPress() {
-
-  }
+  onSignupLoginPress() {}
 
   ////////////////////////////////////////////////////////////////////
   // Button Render Method
@@ -64,24 +62,22 @@ class AuthScreen extends Component {
 
     return (
       <View>
-        <Button onPress={this.onLoginPress.bind(this)}>
-          Log In
-        </Button>
+        <Button onPress={this.onLoginPress.bind(this)}>Log In</Button>
       </View>
     );
   }
-
 
   ////////////////////////////////////////////////////////////////////
   // Main Render Method
   ////////////////////////////////////////////////////////////////////
   render() {
-    return (
-      <View>
-        {this.renderButtons()}
-      </View>
-    );
+    return <View>{this.renderButtons()}</View>;
   }
 }
+
+////////////////////////////////////////////////////////////////////
+// Styles
+////////////////////////////////////////////////////////////////////
+const styles = {};
 
 export default AuthScreen;
