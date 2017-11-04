@@ -6,9 +6,12 @@
 
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import firebase from 'firebase';
+import { Provider } from 'react-redux';
 
+// Store import
+import store from './src/store';
 // Screen imports
 import AddNewScreen from './src/screens/AddNewScreen';
 import AuthScreen from './src/screens/AuthScreen';
@@ -16,6 +19,7 @@ import GroceryListScreen from './src/screens/GroceryListScreen';
 import RecipesScreen from './src/screens/RecipesScreen';
 import SwipeScreen from './src/screens/SwipeScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 // Possibly add a settings?
 // Also possiblilty of having a social feed and send grocery list through texts
@@ -23,7 +27,14 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 
 // App.js (main file)
 export default class App extends React.Component {
-  state = { loggedIn: null };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Setup some warnings to ignore
+  // https://github.com/firebase/firebase-js-sdk/issues/97
+  constructor() {
+    super();
+    console.ignoredYellowBox = ['Setting a timer'];
+  }
 
   // Initialize firebase
   componentWillMount() {
@@ -50,10 +61,18 @@ export default class App extends React.Component {
         // main navigation: Swipe, Grocery, Recipes, Add
         screen: TabNavigator(
           {
-            SwipeScreen: { screen: SwipeScreen },
-            GroceryListScreen: { screen: GroceryListScreen },
-            RecipesScreen: { screen: RecipesScreen },
-            AddNewScreen: { screen: AddNewScreen }
+            Swipe: { screen: StackNavigator({
+              Swipe: { screen: SwipeScreen }, setings: { screen: SettingsScreen }
+            }) },
+            List: { screen: StackNavigator({
+              List: { screen: GroceryListScreen }, settings: { screen: SettingsScreen }
+            }) },
+            Recipes: { screen: StackNavigator({
+              Recipes: { screen: RecipesScreen }, settings: { screen: SettingsScreen }
+            }) },
+            Add: { screen: StackNavigator({
+              Add: { screen: AddNewScreen }, settings: { screen: SettingsScreen }
+            }) }
           },
           {
             // Styling object for core 4 screens
@@ -75,23 +94,24 @@ export default class App extends React.Component {
       tabBarPosition: 'bottom',
       lazy: true,
       navigationOptions: {
-        //tabBarVisible: false,
+        tabBarVisible: false,
         animationEnabled: false,
         swipeEnabled: false
       },
     });
 
     return (
-      <View style={styles.container}>
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff'
+    flex: 1
   }
 });
