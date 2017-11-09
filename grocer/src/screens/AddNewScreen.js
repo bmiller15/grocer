@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Button, Icon } from 'react-native-elements';
+import { Card, Button, Icon, FormInput } from 'react-native-elements';
+import * as actions from '../actions';
 
 //
 class AddNewScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({ navigation }) => {
       return ({
           tabBarLabel: 'Add',
           tabBarIcon: ({ tintColor }) => {
@@ -26,28 +27,28 @@ class AddNewScreen extends Component {
   // enter in every field. maybe generate more add steps wth a button?
 
   // OnNameChange //reducer and action possibly?
-  onNameChange = text => {
-    this.props.nameChange(text);
+  onNameChanged = text => {
+    this.props.name(text);
   };
 
   // onPictureChange
-  onPictureChange = text => {
-    this.props.pictureChange(text);
+  onPictureChanged = text => {
+    this.props.pictureChanged(text);
   };
 
   // onIngredientChange
-  onIngredientChange = text => {
-    this.props.ingredientChange(text);
+  onIngredientChanged = text => {
+    this.props.ingredientChanged(text);
   };
 
   // OnStepChange
-  onStepChange = text => {
-    this.props.stepChange(text);
+  onStepChanged = text => {
+    this.props.stepChanged(text);
   }
+
   // onStandardSubmitPress
-  onStandardSubmitPress = () => {
-    const { name, picture, ingredient, step } = this.props;
-    this.props.standardSubmitPress(name, picture, ingredient, step);
+  onStandardSubmitPress = {
+
   }
 
   // Render buttons
@@ -65,57 +66,53 @@ class AddNewScreen extends Component {
 
   // Render Add Cards
   renderAddCards() {
-      return (
-        <KeyboardAvoidingView behavior='padding'>
-          <Card title="Add New Recipe">
-            <View style={{ height: 500 }}>
+        return (
+          <KeyboardAvoidingView behavior='padding'>
+            <Card title="Add New Recipe">
+              <View style={{ height: 500 }}>
 
-              // Name change
-              <View style={styles.detailWrapper}>
-                <TextInput
-                  title="Add a Name"
-                  style={{ color: 'black' }}
-                  onChangeText={(text) => this.onNameChange({ text })}
-                  value={this.state.pictureChange}
-                />
+                <View style={styles.detailWrapper}>
+                  <FormInput
+                    title="Add Name"
+                    style={{ color: 'black' }}
+                    onChangeText={(text) => this.onNameChanged({ text })}
+                    value={this.state.name}
+                  />
+                </View>
+
+                <View style={styles.detailWrapper}>
+                  <FormInput
+                    title="Add Picture"
+                    style={{ height: 50, borderColor: 'gray', borderWidth: 1 }}
+                    onChangeText={(text) => this.onPictureChanged({ text })}
+                    value={this.state.picture}
+                  />
+                </View>
+
+                <View style={styles.detailWrapper}>
+                  <FormInput
+                    title="Add Ingredients"
+                    style={{ height: 60, borderColor: 'gray', borderWidth: 1 }}
+                    onChangeText={(text) => this.onIngredientChanged({ text })}
+                    value={this.state.ingredients}
+                  />
+                </View>
+
+                <View style={styles.detailWrapper}>
+                  <FormInput
+                    title="Add Step"
+                    style={{ height: 70, borderColor: 'gray', borderWidth: 1 }}
+                    onChangeText={(text) => this.onStepChanged({ text })}
+                    value={this.state.steps}
+                  />
+                </View>
+
+                {this.renderButtons()}
+
               </View>
-
-              // Picture Change
-              <View style={styles.detailWrapper}>
-                <TextInput
-                  title="Add a Picture"
-                  style={{ height: 50, borderColor: 'gray', borderWidth: 1 }}
-                  onChangeText={(text) => this.onPictureChange({ text })}
-                  value={this.state.text}
-                />
-              </View>
-
-              // Ingredient change
-              <View style={styles.detailWrapper}>
-                <TextInput
-                  title="Add an Ingredient"
-                  style={{ height: 60, borderColor: 'gray', borderWidth: 1 }}
-                  onChangeText={(text) => this.onIngredientChange({ text })}
-                  value={this.state.text}
-                />
-              </View>
-
-              // Step Change
-              <View style={styles.detailWrapper}>
-                <TextInput
-                  title="Add Step"
-                  style={{ height: 70, borderColor: 'gray', borderWidth: 1 }}
-                  onChangeText={(text) => this.onStepChange({ text })}
-                  value={this.state.text}
-                />
-              </View>
-
-              {this.renderButtons()}
-
-            </View>
-          </Card>
-        </KeyboardAvoidingView>
-      );
+            </Card>
+          </KeyboardAvoidingView>
+        );
   }
 
 
@@ -146,8 +143,13 @@ const styles = {
 };
 
 // mapStateToProps
-function mapStateToProps(state) {
-  return { recipeList: state.recipeList };
+function mapStateToProps({ recipe }) {
+  return {
+    name: recipe.name,
+    picture: recipe.picture,
+    ingredients: recipe.ingredients,
+    steps: recipe.steps
+  };
 }
 
-export default connect(mapStateToProps)(AddNewScreen);
+export default connect(mapStateToProps, actions)(AddNewScreen);
