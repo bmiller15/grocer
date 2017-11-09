@@ -17,7 +17,6 @@ const INITIAL_STATE = {
   user: null,
   error: '',
   loading: false,
-  fb_token: null
 };
 
 export default function (state = INITIAL_STATE, action) {
