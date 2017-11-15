@@ -66,6 +66,7 @@ class AddNewScreen extends Component {
     );
   }
 
+ /// 
   // Render Add Cards
   renderAddCards() {
         return (
