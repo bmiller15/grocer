@@ -40,7 +40,9 @@ export default function (state = INITIAL_STATE, action) {
         loading: false
       };
     case RESET_APP_STATE:
+      return INITIAL_STATE;
     case AUTH_SIGNOUT_USER:
+      return { ...state, loading: true, error: '' };
     case RESET_SIGNUP_LOGIN_PAGES:
       return INITIAL_STATE;
     default:

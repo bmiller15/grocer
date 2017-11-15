@@ -62,7 +62,7 @@ export default class App extends React.Component {
         screen: TabNavigator(
           {
             Swipe: { screen: StackNavigator({
-              Swipe: { screen: SwipeScreen }, setings: { screen: SettingsScreen }
+              Swipe: { screen: SwipeScreen }, settings: { screen: SettingsScreen }
             }) },
             List: { screen: StackNavigator({
               List: { screen: GroceryListScreen }, settings: { screen: SettingsScreen }

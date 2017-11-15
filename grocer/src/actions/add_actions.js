@@ -3,7 +3,8 @@ import {
   ADD_PICTURE_CHANGED,
   ADD_INGREDIENT_CHANGED,
   ADD_STEP_CHANGED,
-  ADD_RECIPE
+  RESET_ADD,
+  FETCH_CARDS
 } from './types.js';
 
 /////////////////////////////////////////////////////
@@ -35,10 +36,7 @@ export const stepChanged = text => ({
 });
 
 // Called when save is pushed, creates a card and exports it to state
-export const standardSubmitPress = (name, picture, ingredients, steps) => {
-  const recipe = { name, picture, ingredients, steps };
-    return {
-      payload: recipe,
-      type: ADD_RECIPE
-  };
-};
+export const standardSubmitPress = recipe => ({
+  type: FETCH_CARDS,
+  payload: recipe
+});

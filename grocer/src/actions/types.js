@@ -1,5 +1,5 @@
 
-// Auth Tyoes
+// Auth types
 export const LOGIN_EMAIL_CHANGED = 'email_changed';
 export const LOGIN_PASSWORD_CHANGED = 'password_changed';
 export const LOGIN_PASSWORD_RETYPE_CHANGED = 'password_retype_changed';
@@ -15,4 +15,7 @@ export const ADD_NAME_CHANGED = 'name_changed';
 export const ADD_PICTURE_CHANGED = 'picture_changed';
 export const ADD_INGREDIENT_CHANGED = 'ingredient_changed';
 export const ADD_STEP_CHANGED = 'step_changed';
-export const ADD_RECIPE_LIST = 'recipe_list';
+export const RESET_ADD = 'reset';
+
+// Card types
+export const FETCH_CARDS = 'fetch_cards';

@@ -3,8 +3,9 @@ import { View, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, Button, Icon, FormInput } from 'react-native-elements';
 import * as actions from '../actions';
+import { PRIMARY_COLOR, SECONDARY_COLOR, TERTIARY_COLOR } from '../constants/styles';
 
-//
+// Add New Screen adds a new card to the grocery list
 class AddNewScreen extends Component {
     static navigationOptions = ({ navigation }) => {
       return ({
@@ -28,7 +29,7 @@ class AddNewScreen extends Component {
 
   // OnNameChange //reducer and action possibly?
   onNameChanged = text => {
-    this.props.name(text);
+    this.props.nameChanged(text);
   };
 
   // onPictureChange
@@ -47,18 +48,19 @@ class AddNewScreen extends Component {
   }
 
   // onStandardSubmitPress
-  onStandardSubmitPress = {
-
-  }
+  onStandardSubmitPress = () => {
+    const { recipe } = this.props;
+    this.props.standardSubmitPress(recipe);
+    //call reset
+  };
 
   // Render buttons
-  renderButton() {
+  renderButtons() {
     return (
       <View style={{ marginBottom: 10 }}>
         <Button
           title="Save Recipe"
           onPress={this.onStandardSubmitPress}
-          style={'#938480'}
         />
       </View>
     );
@@ -67,43 +69,47 @@ class AddNewScreen extends Component {
   // Render Add Cards
   renderAddCards() {
         return (
-          <KeyboardAvoidingView behavior='padding'>
-            <Card title="Add New Recipe">
+          <KeyboardAvoidingView behavior='padding' style={styles.backgroundStyle}>
+            <Card
+              title="Add New Recipe"
+              style={{ backgroundColor: TERTIARY_COLOR }}
+              titleStyle={{ marginTop: 10, fontSize: 20 }}
+            >
               <View style={{ height: 500 }}>
 
                 <View style={styles.detailWrapper}>
                   <FormInput
-                    title="Add Name"
+                    placeholder="Add Name"
                     style={{ color: 'black' }}
-                    onChangeText={(text) => this.onNameChanged({ text })}
-                    value={this.state.name}
+                    onChangeText={(text) => this.onNameChanged(text)}
+                    value={this.props.name}
                   />
                 </View>
 
                 <View style={styles.detailWrapper}>
                   <FormInput
-                    title="Add Picture"
-                    style={{ height: 50, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => this.onPictureChanged({ text })}
-                    value={this.state.picture}
+                    placeholder="Add Picture"
+                    style={{ color: 'black' }}
+                    onChangeText={(text) => this.onPictureChanged(text)}
+                    value={this.props.picture}
                   />
                 </View>
 
                 <View style={styles.detailWrapper}>
                   <FormInput
-                    title="Add Ingredients"
-                    style={{ height: 60, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => this.onIngredientChanged({ text })}
-                    value={this.state.ingredients}
+                    placeholder="Add Ingredients"
+                    style={{ height: 100 }}
+                    onChangeText={(text) => this.onIngredientChanged(text)}
+                    value={this.props.ingredients}
                   />
                 </View>
 
                 <View style={styles.detailWrapper}>
                   <FormInput
-                    title="Add Step"
-                    style={{ height: 70, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => this.onStepChanged({ text })}
-                    value={this.state.steps}
+                    placeholder="Add Step"
+                    style={{ height: 100 }}
+                    onChangeText={(text) => this.onStepChanged(text)}
+                    value={this.props.steps}
                   />
                 </View>
 
@@ -121,11 +127,9 @@ class AddNewScreen extends Component {
   ///////////////////////////////////////////////////////////////
   render() {
     return (
-      <View style={{ backgroundColor: '#8895AA' }}>
-        <ScrollView>
+        <ScrollView style={{ flex: 1, backgroundColor: PRIMARY_COLOR }}>
           {this.renderAddCards()}
         </ScrollView>
-      </View>
     );
   }
 }
@@ -134,21 +138,19 @@ class AddNewScreen extends Component {
 const styles = {
   detailWrapper: {
     marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: '#938480'
+    marginBottom: 10
   },
   backgroundStyle: {
-
+    backgroundColor: PRIMARY_COLOR,
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20
   }
 };
 
-// mapStateToProps
-function mapStateToProps({ recipe }) {
+function mapStateToProps({ recipes }) {
   return {
-    name: recipe.name,
-    picture: recipe.picture,
-    ingredients: recipe.ingredients,
-    steps: recipe.steps
+    recipe: recipes.recipe
   };
 }
 
