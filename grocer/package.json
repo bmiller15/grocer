@@ -6,19 +6,17 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "axios": "^0.17.0",
     "expo": "^22.0.0",
-    "firebase": "^4.6.0",
-    "lodash": "^4.17.4",
-    "react": "16.0.0-beta.5",
+    "firebase": "^3.4.1",
+    "lodash": "^4.16.4",
+    "react": "^16.0.0-beta.5",
     "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.1.tar.gz",
     "react-native-elements": "^0.17.0",
+    "react-native-router-flux": "^3.35.0",
     "react-native-vector-icons": "^4.4.2",
-    "react-navigation": "^1.0.0-beta.15",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2",
-    "redux-persist": "^5.2.2",
-    "redux-thunk": "^2.2.0"
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "eslint-config-rallycoding": "^3.2.0"

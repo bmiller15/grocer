@@ -10,12 +10,11 @@ export const AUTH_USER_FAIL = 'signup_or_login_user_fail';
 export const RESET_APP_STATE = 'reset_app_state';
 export const AUTH_SIGNOUT_USER = 'signout_user';
 
-// Add types
-export const ADD_NAME_CHANGED = 'name_changed';
-export const ADD_PICTURE_CHANGED = 'picture_changed';
-export const ADD_INGREDIENT_CHANGED = 'ingredient_changed';
-export const ADD_STEP_CHANGED = 'step_changed';
-export const RESET_ADD = 'reset';
-
-// Card types
-export const FETCH_CARDS = 'fetch_cards';
+//Form types
+export const RECIPE_UPDATE = 'recipe_update';
+export const RECIPE_CREATE = 'recipe_create';
+export const RECIPE_FETCH_SUCCESS = 'recipe_fetch_success';
+export const RECIPE_SAVE_SUCCESS = 'recipe_save_success';
+export const RECIPE_DELETE_SUCCESS = 'recipe_delete_success';
+export const LIKE_RECIPE = 'like_recipe';
+export const LIKE_FETCH_SUCCESS = 'like_fetch_success';

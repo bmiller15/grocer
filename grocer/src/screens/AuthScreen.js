@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { View, Text, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import firebase from 'firebase';
 import {
@@ -10,7 +11,7 @@ import {
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Spinner } from '../components/Spinner';
-
+import { PRIMARY_COLOR } from '../constants/styles';
 // Purpose of this auth screen is just to call action creator
 class AuthScreen extends Component {
   //////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +25,9 @@ class AuthScreen extends Component {
 
     // Check if user is persisted and "login" by navigating to main if so
     if (firebase.auth().currentUser) {
-      return this.props.navigation.navigate('main'); // Navigate to main page
+       console.log(firebase.auth().currentUser);
+      Actions.main();
+      //return this.props.navigation.navigate('main'); // Navigate to main page
     }
 
     //console.log(this.props.navigation.state.params);
@@ -38,11 +41,11 @@ class AuthScreen extends Component {
       console.log('onAuthStateChanged()');
       if (user) {
         // Navigate to main page
-        this.props.navigation.navigate('main');
+        //this.props.navigation.navigate('main');
         return;
       }
 
-      this.props.navigation.navigate('auth');
+      //this.props.navigation.navigate('auth');
     });
   }
 
@@ -94,7 +97,6 @@ class AuthScreen extends Component {
           <Button
             title="Sign Up"
             //icon={{ name: 'vpn-key' }}
-            backgroundColor={'#938480'}
             onPress={this.onStandardSignupButtonPress}
           />
 
@@ -167,7 +169,10 @@ class AuthScreen extends Component {
     return (
         <KeyboardAvoidingView behavior='padding' style={styles.backgroundStyle}>
             <View style={{ marginBottom: 10 }}>
-              <FormLabel>E-mail</FormLabel>
+              <FormLabel>
+                E-mail
+              </FormLabel>
+
               <FormInput
                 placeholder="example@email.com"
                 value={this.props.email}
@@ -221,7 +226,7 @@ const styles = {
     alignItems: 'center'
   },
   backgroundStyle: {
-    backgroundColor: '#8895AA',
+    backgroundColor: PRIMARY_COLOR,
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,

@@ -1,42 +1,102 @@
+import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 import {
-  ADD_NAME_CHANGED,
-  ADD_PICTURE_CHANGED,
-  ADD_INGREDIENT_CHANGED,
-  ADD_STEP_CHANGED,
-  RESET_ADD,
-  FETCH_CARDS
+  RECIPE_UPDATE,
+  RECIPE_CREATE,
+  RECIPE_FETCH_SUCCESS,
+  RECIPE_SAVE_SUCCESS,
+  RECIPE_DELETE_SUCCESS,
+  LIKE_RECIPE
 } from './types.js';
 
 /////////////////////////////////////////////////////
 // Add New Card methods
 /////////////////////////////////////////////////////
 
-// Called when name is changed
-export const nameChanged = text => ({
-  type: ADD_NAME_CHANGED,
-  payload: text
-});
 
-// Called when picture is changed
-export const pictureChanged = text => ({
-  type: ADD_PICTURE_CHANGED,
-  payload: text
-});
+// Updates Recipe Card
+export const recipeUpdate = ({ prop, value }) => {
+  return {
+      type: RECIPE_UPDATE,
+      payload: { prop, value }
+  };
+};
 
-// Called when ingredient is changed
-export const ingredientChanged = text => ({
-  type: ADD_INGREDIENT_CHANGED,
-  payload: text
-});
+export const recipeCreate = ({ name, picture, ingredients, steps }) => {
+  const { currentUser } = firebase.auth();
 
-// Called when step is changed
-export const stepChanged = text => ({
-  type: ADD_STEP_CHANGED,
-  payload: text
-});
+  return (dispatch) => {
+      firebase.database().ref(`/users/${currentUser.uid}/recipes`)
+        .push({ name, picture, ingredients, steps })
+        .then(() => {
+          dispatch({ type: RECIPE_CREATE });
+          Actions.recipeList();
+        });
+  };
+};
 
-// Called when save is pushed, creates a card and exports it to state
-export const standardSubmitPress = recipe => ({
-  type: FETCH_CARDS,
-  payload: recipe
-});
+export const likeRecipe = (recipe) => {
+  const { currentUser } = firebase.auth();
+
+    return () => {
+      firebase.database().ref(`/users/${currentUser.uid}/likes`)
+      .push({ recipe })
+    };
+};
+
+export const likeFetch = () => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/likes`)
+    .on('value', snapshot => {
+      dispatch({ type: LIKE_RECIPE, payload: snapshot.val() })
+    });
+  };
+};
+
+export const recipeFetch = () => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/recipes`)
+      .on('value', snapshot => {
+        dispatch({ type: RECIPE_FETCH_SUCCESS, payload: snapshot.val() });
+      });
+  };
+};
+
+export const recipeSave = ({ name, picture, ingredients, steps, uid }) => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/recipes/${uid}`)
+    .set({ name, picture, ingredients, steps })
+    .then(() => {
+      dispatch({ type: RECIPE_SAVE_SUCCESS });
+      Actions.recipeList();
+    });
+  };
+};
+
+export const likeDelete = ({ uid }) => {
+  const { currentUser } = firebase.auth();
+
+  return () => {
+    firebase.database().ref(`/users/${currentUser.uid}/likes/${uid}`)
+    .remove();
+  };
+};
+
+export const recipeDelete = ({ uid }) => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/recipes/${uid}`)
+    .remove()
+    .then(() => {
+      dispatch({ type: RECIPE_DELETE_SUCCESS });
+      Actions.recipeList();
+    });
+  };
+};
